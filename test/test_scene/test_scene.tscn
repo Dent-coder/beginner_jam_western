@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3 uid="uid://bar28w8s0vjwc"]
+
+[ext_resource type="PackedScene" uid="uid://dr0k12xbxkom3" path="res://test/base_test_scene/base_test_scene.tscn" id="1_r7qtk"]
+[ext_resource type="PackedScene" uid="uid://dtc2isv2w7v20" path="res://scenes/player/player.tscn" id="2_ld8i6"]
+[ext_resource type="Script" uid="uid://fmws3i8ipq37" path="res://test/test_scene/test_scene.gd" id="2_pse3m"]
+[ext_resource type="PackedScene" uid="uid://ckaomldyxwf30" path="res://scenes/enemy/enemy.tscn" id="3_g6bh4"]
+[ext_resource type="Texture2D" uid="uid://77yy4kk5nmvs" path="res://assets/textures/Rock063_1K-JPG/Rock063_1K-JPG_Roughness.jpg" id="3_t7mfc"]
+[ext_resource type="Texture2D" uid="uid://xhgpav1y18hh" path="res://assets/textures/Rock063_1K-JPG/Rock063_1K-JPG_NormalDX.jpg" id="4_g6bh4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pse3m"]
+size = Vector2(64, 64)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtagq"]
+albedo_color = Color(0.48178947, 0.48178947, 0.48178947, 1)
+normal_enabled = true
+normal_texture = ExtResource("4_g6bh4")
+heightmap_scale = 0.5
+heightmap_texture = ExtResource("3_t7mfc")
+uv1_scale = Vector3(4, 4, 4)
+texture_filter = 0
+
+[node name="TestScene" instance=ExtResource("1_r7qtk")]
+script = ExtResource("2_pse3m")
+
+[node name="Enemy" parent="." index="0" instance=ExtResource("3_g6bh4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.7300873)
+
+[node name="MeshInstance3D" parent="Ground" index="1"]
+mesh = SubResource("PlaneMesh_pse3m")
+surface_material_override/0 = SubResource("StandardMaterial3D_rtagq")
+
+[node name="Player" parent="." index="4" instance=ExtResource("2_ld8i6")]

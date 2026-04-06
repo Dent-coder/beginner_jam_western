@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtc2isv2w7v20"]
+
+[ext_resource type="PackedScene" uid="uid://b6ut2gkslwrq" path="res://scenes/entity/entity.tscn" id="1_8afob"]
+[ext_resource type="Script" uid="uid://cpjrsewijk2t4" path="res://scenes/player/player.gd" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://cf11hx406ss10" path="res://scenes/weapon/weapon.tscn" id="3_gmlin"]
+[ext_resource type="PackedScene" uid="uid://c547i4svaflvj" path="res://assets/models/character/base_character.glb" id="4_lvxji"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lvxji"]
+top_radius = 0.04
+bottom_radius = 0.02
+height = 1.0
+
+[node name="Player" node_paths=PackedStringArray("weapon", "animation_player") instance=ExtResource("1_8afob")]
+script = ExtResource("2_dovo2")
+mouse_sensitivity = 0.002
+weapon = NodePath("base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker/Weapon")
+animation_player = NodePath("base_character/AnimationPlayer")
+
+[node name="MeshInstance3D" parent="." index="1"]
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 2.3000002, 1.3)
+
+[node name="base_character" parent="." index="5" instance=ExtResource("4_lvxji")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Weapon" parent="base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker" index="0" instance=ExtResource("3_gmlin")]
+transform = Transform3D(-0.063073836, -0.98399776, -0.16664349, -0.97184914, 0.09853818, -0.21400651, 0.22700264, 0.14845388, -0.96251315, -0.03718418, -0.009779215, -0.124341294)
+damage = 1.0
+knockback_force = 20.0
+attacking_interval = 0.16
+cooldown_interval = 1.0
+
+[node name="RayCast3D" parent="base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker/Weapon" index="0"]
+target_position = Vector3(0, 0, -1.4)
+
+[node name="MeshInstance3D" parent="base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker/Weapon/RayCast3D" index="0"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker/Weapon" index="1"]
+transform = Transform3D(1, -4.7605335e-15, 4.7605335e-15, -4.7605335e-15, -4.371139e-08, 1, -4.7605335e-15, -1, -4.371139e-08, 0, 0, -0.5)
+mesh = SubResource("CylinderMesh_lvxji")
+
+[editable path="base_character"]
+[editable path="base_character/Armature/Skeleton3D/mixamorig_RightHandIndex1/melee_marker/Weapon"]

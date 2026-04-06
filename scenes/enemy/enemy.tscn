@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckaomldyxwf30"]
+
+[ext_resource type="PackedScene" uid="uid://b6ut2gkslwrq" path="res://scenes/entity/entity.tscn" id="1_4a83h"]
+[ext_resource type="Script" uid="uid://2surt8dxckk4" path="res://scenes/enemy/enemy.gd" id="2_a3pup"]
+[ext_resource type="PackedScene" uid="uid://cf11hx406ss10" path="res://scenes/weapon/weapon.tscn" id="3_40wdo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3pup"]
+size = Vector3(0.4, 0.2, 0.2)
+
+[node name="Enemy" node_paths=PackedStringArray("weapon") instance=ExtResource("1_4a83h")]
+script = ExtResource("2_a3pup")
+weapon = NodePath("Weapon")
+knockingback_interval = 0.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.5691846)
+mesh = SubResource("BoxMesh_a3pup")
+
+[node name="Weapon" parent="." index="4" instance=ExtResource("3_40wdo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
